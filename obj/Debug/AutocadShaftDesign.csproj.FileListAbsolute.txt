@@ -1,0 +1,6 @@
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\bin\Debug\AutocadShaftDesign.dll
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\bin\Debug\AutocadShaftDesign.pdb
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.csproj.AssemblyReference.cache
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.csproj.CoreCompileInputs.cache
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.dll
+C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.pdb
