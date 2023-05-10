@@ -4,3 +4,9 @@ C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDe
 C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.csproj.CoreCompileInputs.cache
 C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.dll
 C:\Users\roman.kralicek\source\repos\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.pdb
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\bin\Debug\AutocadShaftDesign.dll
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\bin\Debug\AutocadShaftDesign.pdb
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.csproj.AssemblyReference.cache
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.csproj.CoreCompileInputs.cache
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.dll
+R:\VZORY UŽITEČNÉ PODKLADY A NÁSTROJE\_VÝVOJ SOFTWARU\AutocadShaftDesign\obj\Debug\AutocadShaftDesign.pdb

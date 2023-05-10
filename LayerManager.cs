@@ -14,10 +14,10 @@ namespace AutocadShaftDesign
     {
         public void CreatePlainLayer(string name)
         {
-            TransactionManager transactionManager = new TransactionManager();  
+            TransactionManager transactionManager = new TransactionManager();
             LayerTableRecord layerTableRecord = new LayerTableRecord();
             layerTableRecord.Name = name;
-            
+
             transactionManager.CommitLayer(ref layerTableRecord);
         }
         public void UpdateLayerThickness(string name, int thickness)
@@ -48,6 +48,8 @@ namespace AutocadShaftDesign
             foreach (ObjectId layerId in transactionManager.layerTable)
             {
                 LayerTableRecord layerTableRecord = transactionManager.trans.GetObject(layerId, OpenMode.ForRead) as LayerTableRecord;
+                //opravit dle kodu dole - přidat foreach
+                LinetypeTableRecord linetypeTableRecord = transactionManager.trans.GetObject(lineId, OpenMode.ForRead) as LinetypeTableRecord;
 
                 if (layerTableRecord.Name == name)
                 {
@@ -64,20 +66,36 @@ namespace AutocadShaftDesign
                         transactionManager.doc.Editor.WriteMessage("\nNo such linetype");
                         transactionManager.trans.Abort();
                     }
-                    
-                }  
+
+                }
             }
-            
+
         }
         public void ListAllLineTypes()
         {
             TransactionManager transactionManager = new TransactionManager();
-            foreach(ObjectId lineId in transactionManager.linetypeTable) 
+            foreach (ObjectId lineId in transactionManager.linetypeTable)
             {
                 LinetypeTableRecord linetypeTableRecord = transactionManager.trans.GetObject(lineId, OpenMode.ForRead) as LinetypeTableRecord;
                 transactionManager.doc.Editor.WriteMessage("\nLinetype name: " + linetypeTableRecord.Name);
             }
             transactionManager.trans.Commit();
+        }
+        public void AddLinetypeFromFile(string filename, string linetypeName)
+        {
+            TransactionManager transactionManager = new TransactionManager();
+            if(transactionManager.linetypeTable.Has(linetypeName))
+            {
+                transactionManager.doc.Editor.WriteMessage("Linetype already exist");
+                transactionManager.trans.Abort();
+            }
+            else
+            {
+                //Load the linetype
+                transactionManager.db.LoadLineTypeFile(linetypeName, filename);
+                transactionManager.doc.Editor.WriteMessage("Linetype [ " + linetypeName + "] was created succesfully");
+                transactionManager.trans.Commit();
+            }
         }
     }
 

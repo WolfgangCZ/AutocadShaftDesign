@@ -77,6 +77,14 @@ namespace AutocadShaftDesign
             LayerManager layerManager = new LayerManager();
             layerManager.ListAllLineTypes();
         }
+        [CommandMethod("addlinetypefromfile")]
+        public void AddLinetypeFromFile()
+        {
+            LayerManager layerManager = new LayerManager();
+            string linetypeName = userInputOutput.GetInputString("Type linetype name: ");
+            string filename = "acad.lin";
+            layerManager.AddLinetypeFromFile(filename, linetypeName);
+        }
             
         //TODO kontrola, jestli se tam zadávají správné parametry (string int atd)
         //TODO nutné vytvořit novou linetype, protože to není načtené řekl bych
