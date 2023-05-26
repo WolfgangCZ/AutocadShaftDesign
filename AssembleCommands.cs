@@ -59,17 +59,17 @@ namespace AutocadShaftDesign
             int isHorizontal = userInputOutput.GetInputInt("Is the beam horizontal? (0=no, >1=yes):");
             jackleManager.DrawJackleTop(x, y, width, lenght, isHorizontal);
         }
-        [CommandMethod("createlayer")]
-        public void CreateLayer()
+        [CommandMethod("createbasiclayer")]
+        public void CreateBasicLayer()
         {
-            string name = userInputOutput.GetInputString("Type layer name: ");
-            int color = userInputOutput.GetInputInt("Type color index: ");
-            string linetype = userInputOutput.GetInputString("Type line type: ");
-            short colorId = (short)color;
             LayerManager layerManager = new LayerManager();
+            string name = userInputOutput.GetInputString("Type layer name: ");
+            //int color = userInputOutput.GetInputInt("Type color index: ");
+            //string linetype = userInputOutput.GetInputString("Type line type: ");
+            //short colorId = (short)color;
             layerManager.CreatePlainLayer(name);
-            layerManager.UpdateLayerColor(name, colorId);
-            layerManager.UpdateLayerLinetype(name, linetype);
+            //layerManager.UpdateLayerColor(name, colorId);
+            //layerManager.UpdateLayerLinetype(name, linetype);
         }
         [CommandMethod("listlinetypes")]
         public void ListLinetypes()
@@ -85,7 +85,20 @@ namespace AutocadShaftDesign
             string filename = "acad.lin";
             layerManager.AddLinetypeFromFile(filename, linetypeName);
         }
-            
+        [CommandMethod("createallbasiclayers")]
+        public void CreateBasicLayers()
+        {
+            LayerManager layerManager = new LayerManager();
+            layerManager.CreateAllBasicLayers();
+        }
+        [CommandMethod("updatelayerlinetype")]
+        public void UpdateLayerLinetype()
+        {
+            LayerManager layerManager = new LayerManager();
+            string linetypeName = userInputOutput.GetInputString("Type linetype name: ");
+            string layerName = userInputOutput.GetInputString("Type layer name: ");
+            layerManager.UpdateLayerLinetype(layerName, linetypeName);
+        }
         //TODO kontrola, jestli se tam zadávají správné parametry (string int atd)
         //TODO nutné vytvořit novou linetype, protože to není načtené řekl bych
         //TODO opravit protože to nefunguje i když ručně hladinu vytv ořím

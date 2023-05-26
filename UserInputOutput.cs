@@ -60,7 +60,7 @@ namespace AutocadShaftDesign
             prompt.AllowSpaces = false;
             PromptResult result = edt.GetString(prompt);
             string value = result.StringResult;
-            while (!((result.Status == PromptStatus.OK) && !Int32.TryParse(value, out _)))
+            while (!((result.Status == PromptStatus.OK) && Int32.TryParse(value, out _)))
             {
                 edt.WriteMessage("Incorrect input, try again");
                 result = edt.GetString(prompt);

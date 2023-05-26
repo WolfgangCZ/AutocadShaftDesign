@@ -8,12 +8,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.GraphicsInterface;
+using System.Diagnostics.Eventing.Reader;
+using System.Xml.Linq;
 
 namespace AutocadShaftDesign
 {
     public class LayerManager
     {
-        public string[] createdLayers;
+        public string[] createdLayers = new string[0];
+        public string[] createdLinetypes = new string[0];
+        public void CreateAllBasicLayers()
+        {
+            CreatePlainLayer("011ACSD_THIN_SOLID");
+            CreatePlainLayer("012ACSD_THIN_DASH");
+            CreatePlainLayer("013ACSD_THIN_DASHDOT");
+            CreatePlainLayer("014ACSD_THIN_DASHDOTDOT");
+            CreatePlainLayer("021ACSD_THICK_SOLID");
+            CreatePlainLayer("022ACSD_THICK_DASH");
+            CreatePlainLayer("023ACSD_THICK_DASHDOT");
+            CreatePlainLayer("024ACSD_THICK_DASHDOTDOT");
+            CreatePlainLayer("031ACSD_DIM");
+            CreatePlainLayer("031ACSD_TEXT");
+        }
+        public void CreateAllBasicLinetypes()
+        {
+            AddLinetypeFromFile("acad.lin", "ACAD_ISO02W100");
+            AddLinetypeFromFile("acad.lin", "ACAD_ISO10W100");
+            AddLinetypeFromFile("acad.lin", "ACAD_ISO12W100");
+        }
         public void CreatePlainLayer(string name)
         {
             TransactionManager transactionManager = new TransactionManager();
@@ -44,8 +66,7 @@ namespace AutocadShaftDesign
             }
         }
 
-        Line
-        //not functional, probably create linetype manager? would it be better? 
+        //TODO pokud linetype není načtená, načíst, pokud neexistuje, napsat, že neexistuje a nastavit na continuous
         public void UpdateLayerLinetype(string name, string linetype)
         {
             TransactionManager transactionManager = new TransactionManager();
@@ -53,9 +74,7 @@ namespace AutocadShaftDesign
             foreach (ObjectId layerId in transactionManager.layerTable)
             {
                 LayerTableRecord layerTableRecord = transactionManager.trans.GetObject(layerId, OpenMode.ForRead) as LayerTableRecord;
-                //opravit dle kodu dole - přidat foreach
-                LinetypeTableRecord linetypeTableRecord = transactionManager.trans.GetObject(lineId, OpenMode.ForRead) as LinetypeTableRecord;
-
+                
                 if (layerTableRecord.Name == name)
                 {
                     if (transactionManager.linetypeTable.Has(linetype))
@@ -68,15 +87,20 @@ namespace AutocadShaftDesign
 
                     else
                     {
-                        transactionManager.doc.Editor.WriteMessage("\nNo such linetype");
-                        transactionManager.trans.Abort();
+                        transactionManager.doc.Editor.WriteMessage("\nlinetype doesnt exist or isnt loaded - linetype set to continuous");
+                        layerTableRecord.LinetypeObjectId = transactionManager.layerTable["Continuous"];
+                        transactionManager.trans.Commit();
                     }
-
+                }
+                else
+                {
+                    transactionManager.doc.Editor.WriteMessage("\nlayer doesnt exist");
+                    transactionManager.trans.Abort();
                 }
             }
 
         }
-        public void ListAllLineTypes()
+        public void ListAllLineTypes() //prostě jen pro vypsání hladin
         {
             TransactionManager transactionManager = new TransactionManager();
             foreach (ObjectId lineId in transactionManager.linetypeTable)
