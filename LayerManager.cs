@@ -7,16 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Autodesk.AutoCAD.GraphicsInterface;
 
 namespace AutocadShaftDesign
 {
     public class LayerManager
     {
+        public string[] createdLayers;
         public void CreatePlainLayer(string name)
         {
             TransactionManager transactionManager = new TransactionManager();
             LayerTableRecord layerTableRecord = new LayerTableRecord();
             layerTableRecord.Name = name;
+            createdLayers.Append(name);
 
             transactionManager.CommitLayer(ref layerTableRecord);
         }
@@ -40,7 +43,9 @@ namespace AutocadShaftDesign
                 }
             }
         }
-        //not functional
+
+        Line
+        //not functional, probably create linetype manager? would it be better? 
         public void UpdateLayerLinetype(string name, string linetype)
         {
             TransactionManager transactionManager = new TransactionManager();
