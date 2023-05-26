@@ -95,9 +95,15 @@ namespace AutocadShaftDesign
         public void UpdateLayerLinetype()
         {
             LayerManager layerManager = new LayerManager();
-            string linetypeName = userInputOutput.GetInputString("Type linetype name: ");
             string layerName = userInputOutput.GetInputString("Type layer name: ");
+            string linetypeName = userInputOutput.GetInputString("Type linetype name: ");
             layerManager.UpdateLayerLinetype(layerName, linetypeName);
+        }
+        [CommandMethod("loadbasiclinetypefromfile")]
+        public void LoadBasicLinetypesFromFile()
+        {
+            LayerManager layerManager = new LayerManager();
+            layerManager.CreateAllBasicLinetypes();
         }
         //TODO kontrola, jestli se tam zadávají správné parametry (string int atd)
         //TODO nutné vytvořit novou linetype, protože to není načtené řekl bych

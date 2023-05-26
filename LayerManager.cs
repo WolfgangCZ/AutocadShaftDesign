@@ -29,6 +29,7 @@ namespace AutocadShaftDesign
             CreatePlainLayer("024ACSD_THICK_DASHDOTDOT");
             CreatePlainLayer("031ACSD_DIM");
             CreatePlainLayer("031ACSD_TEXT");
+            CreatePlainLayer("test");
         }
         public void CreateAllBasicLinetypes()
         {
@@ -73,29 +74,24 @@ namespace AutocadShaftDesign
 
             foreach (ObjectId layerId in transactionManager.layerTable)
             {
-                LayerTableRecord layerTableRecord = transactionManager.trans.GetObject(layerId, OpenMode.ForRead) as LayerTableRecord;
+                LayerTableRecord layerTableRecord = transactionManager.trans.GetObject(layerId, OpenMode.ForWrite) as LayerTableRecord;
                 
                 if (layerTableRecord.Name == name)
                 {
                     if (transactionManager.linetypeTable.Has(linetype))
                     {
-                        layerTableRecord.LinetypeObjectId = transactionManager.layerTable[linetype];
-                        transactionManager.trans.Commit();
+                        layerTableRecord.LinetypeObjectId = transactionManager.linetypeTable[linetype];
                         transactionManager.doc.Editor.WriteMessage("\nLayer linetype changed");
+                        transactionManager.trans.Commit();
                         break;
                     }
 
                     else
                     {
-                        transactionManager.doc.Editor.WriteMessage("\nlinetype doesnt exist or isnt loaded - linetype set to continuous");
-                        layerTableRecord.LinetypeObjectId = transactionManager.layerTable["Continuous"];
-                        transactionManager.trans.Commit();
+                        transactionManager.doc.Editor.WriteMessage("\nlinetype doesnt exist or isnt loaded - linetype unchanged");
+                        transactionManager.trans.Abort();
+                        break;
                     }
-                }
-                else
-                {
-                    transactionManager.doc.Editor.WriteMessage("\nlayer doesnt exist");
-                    transactionManager.trans.Abort();
                 }
             }
 
